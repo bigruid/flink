@@ -26,7 +26,13 @@ import java.util.Optional;
 public final class JdbcDialects {
 
     private static final List<JdbcDialect> DIALECTS =
-            Arrays.asList(new DerbyDialect(), new MySQLDialect(), new PostgresDialect());
+            Arrays.asList(
+                    new DerbyDialect(),
+                    new MySQLDialect(),
+                    new PostgresDialect(),
+                    new OracleDialect(),
+                    new VerticaDialect()
+            );
 
     /** Fetch the JdbcDialect class corresponding to a given database url. */
     public static Optional<JdbcDialect> get(String url) {
