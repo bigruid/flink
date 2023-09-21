@@ -62,7 +62,7 @@ public class OracleDialect extends AbstractDialect{
 
     @Override
     public Optional<String> defaultDriverName() {
-        return Optional.of("oracle.jdbc.driver.OracleDriver");
+        return Optional.of("oracle.jdbc.OracleDriver");
     }
 
     @Override
@@ -148,21 +148,24 @@ public class OracleDialect extends AbstractDialect{
 
     @Override
     public List<LogicalTypeRoot> unsupportedTypes() {
-        // TODO: We can't convert BINARY data type to
-        //  PrimitiveArrayTypeInfo.BYTE_PRIMITIVE_ARRAY_TYPE_INFO in
-        // LegacyTypeInfoDataTypeConverter.
+        // The data types used in Oracle are list at:
+        // https://www.techonthenet.com/oracle/datatypes.php
         return Arrays.asList(
-                LogicalTypeRoot.BINARY,
-                LogicalTypeRoot.INTERVAL_YEAR_MONTH,
-                LogicalTypeRoot.INTERVAL_DAY_TIME,
-                LogicalTypeRoot.MULTISET,
-                LogicalTypeRoot.MAP,
-                LogicalTypeRoot.ROW,
-                LogicalTypeRoot.DISTINCT_TYPE,
-                LogicalTypeRoot.STRUCTURED_TYPE,
-                LogicalTypeRoot.NULL,
-                LogicalTypeRoot.RAW,
-                LogicalTypeRoot.SYMBOL,
-                LogicalTypeRoot.UNRESOLVED);
+                LogicalTypeRoot.CHAR,
+                LogicalTypeRoot.VARCHAR,
+                LogicalTypeRoot.BOOLEAN,
+                LogicalTypeRoot.VARBINARY,
+                LogicalTypeRoot.DECIMAL,
+                LogicalTypeRoot.TINYINT,
+                LogicalTypeRoot.SMALLINT,
+                LogicalTypeRoot.INTEGER,
+                LogicalTypeRoot.BIGINT,
+                LogicalTypeRoot.FLOAT,
+                LogicalTypeRoot.DOUBLE,
+                LogicalTypeRoot.DATE,
+                LogicalTypeRoot.TIME_WITHOUT_TIME_ZONE,
+                LogicalTypeRoot.TIMESTAMP_WITHOUT_TIME_ZONE,
+                LogicalTypeRoot.TIMESTAMP_WITH_LOCAL_TIME_ZONE,
+                LogicalTypeRoot.ARRAY);
     }
 }
