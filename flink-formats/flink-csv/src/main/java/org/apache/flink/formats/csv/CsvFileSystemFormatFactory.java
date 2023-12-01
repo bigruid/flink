@@ -295,15 +295,21 @@ public class CsvFileSystemFormatFactory implements FileSystemFormatFactory {
         public RowData nextRecord(RowData reuse) throws IOException {
             GenericRowData csvRow = null;
             while (csvRow == null) {
+                JsonNode root = null;
                 try {
-                    JsonNode root = iterator.nextValue();
+                    root = iterator.nextValue();
                     csvRow = (GenericRowData) runtimeConverter.convert(root);
                 } catch (NoSuchElementException e) {
                     end = true;
                     return null;
                 } catch (Throwable t) {
                     if (!ignoreParseErrors) {
-                        throw new IOException("Failed to deserialize CSV row.", t);
+                        String msg =
+                                "Failed to deserialize CSV row: "
+                                        + root
+                                        + " ,file path: "
+                                        + currentSplit.getPath();
+                        throw new IOException(msg, t);
                     }
                 }
             }
